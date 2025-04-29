@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#024b97">
+    <link rel="icon" href="https://i.imgur.com/gC8DDHD.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/gC8DDHD.png">
+    <link href="assets/id.css" rel="stylesheet">
+    <link href="assets/bar.css" rel="stylesheet">
+    <title>mObywatel</title>
+</head>
+<body>
+    <header>
+        <div class="top_grid">
+            <div class="action_grid">
+                <img src="https://i.imgur.com/MBLAM9x.png" class="back_img" alt="Back">
+                <p class="back_text">Wróć</p>
+            </div>
+            <p class="title_text">mDowód</p>
+            <img src="https://i.imgur.com/YQ6jvg7.png" class="help_img" alt="Help">
+        </div>
+    </header>
+
+    <main>
+        <!-- ID Image and Data Section -->
+        <section class="id_image_data">
+            <img src="https://i.imgur.com/JnrzClA.png" class="id_image" alt="ID Image" draggable="false">
+            <div class="id_own_image" style="background-image: url('https://i.imgur.com/7vHo48p.jpg');"></div>
+            <img src="https://i.imgur.com/PzfFFls.gif" class="flag_video" alt="Flag Animation">
+            <img src="https://i.imgur.com/78P43gU.gif" class="eagle_video" alt="Eagle Animation">
+            <div class="id_data_grid">
+                <div class="data_holder">
+                    <p class="data_title" id="name"></p>
+                    <p class="data_value">Imię (imiona)</p>
+                </div>
+                <div class="data_holder">
+                    <p class="data_title" id="surname"></p>
+                    <p class="data_value">Nazwisko</p>
+                </div>
+                <div class="data_holder">
+                    <p class="data_title" id="nationality"></p>
+                    <p class="data_value">Obywatelstwo</p>
+                </div>
+                <div class="data_holder">
+                    <p class="data_title" id="birthday"></p>
+                    <p class="data_value">Data urodzenia</p>
+                </div>
+                <div class="data_holder">
+                    <p class="data_title" id="pesel"></p>
+                    <p class="data_value">Numer PESEL</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Bar Section -->
+        <section class="bottom_bar">
+            <div class="bottom_bar_grid">
+                <div class="bottom_element_grid">
+                    <img class="bottom_element_image" src="https://i.imgur.com/GdbE1uc.png" alt="Home Icon">
+                    <p class="bottom_element_text" style="color: #024b97;">Pulpit</p>
+                </div>
+                <div class="bottom_element_grid">
+                    <img class="bottom_element_image" src="https://i.imgur.com/5Jn7WC3.png" alt="Documents Icon">
+                    <p class="bottom_element_text">Dokumenty</p>
+                </div>
+                <div class="bottom_element_grid">
+                    <img class="bottom_element_image" src="https://i.imgur.com/wC5lr9l.png" style="width: 35px;" alt="Services Icon">
+                    <p class="bottom_element_text">Usługi</p>
+                </div>
+                <div class="bottom_element_grid">
+                    <img class="bottom_element_image" src="https://i.imgur.com/FYL95et.png" style="width: 30px;" alt="QR Code Icon">
+                    <p class="bottom_element_text">Kod QR</p>
+                </div>
+                <div class="bottom_element_grid">
+                    <img class="bottom_element_image" src="https://i.imgur.com/oshCIbv.png" style="width: 30px;" alt="More Icon">
+                    <p class="bottom_element_text">Więcej</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Data Section -->
+        <section class="other_grid">
+            <div class="bottom_holder">
+                <div class="bottom_grid">
+                    <img class="bottom_image" style="width: 35px;" src="https://i.imgur.com/xUBD93p.png" alt="Confirm Icon">
+                    <p class="bottom_text">Potwierdź swoje dane</p>
+                </div>
+                <img class="action_arrow" src="https://i.imgur.com/aUZmu0W.png" alt="Arrow">
+            </div>
+            <div class="bottom_holder">
+                <div class="bottom_grid">
+                    <img class="bottom_image" style="width: 35px;" src="https://i.imgur.com/4MOtjzn.png" alt="Document Info Icon">
+                    <p class="bottom_text">Dane dokumentu</p>
+                </div>
+                <img class="action_arrow" src="https://i.imgur.com/aUZmu0W.png" alt="Arrow">
+            </div>
+
+            <div class="bottom_holder info_holder">
+                <div class="bottom_grid">
+                    <p class="bottom_text">Twoje dodatkowe dane</p>
+                </div>
+                <img class="action_arrow" src="https://i.imgur.com/aUZmu0W.png" alt="Arrow">
+                <div class="additional_holder">
+                    <div class="additional_grid">
+                        <p class="additional_title">Nazwisko rodowe</p>
+                        <p class="additional_subtitle" id="familyName"></p>
+                    </div>
+                    <div class="additional_grid">
+                        <p class="additional_title">Płeć</p>
+                        <p class="additional_subtitle" id="sex"></p>
+                    </div>
+                    <div class="additional_grid">
+                        <p class="additional_title">Nazwisko rodowe ojca</p>
+                        <p class="additional_subtitle" id="fathersFamilyName"></p>
+                    </div>
+                    <div class="additional_grid">
+                        <p class="additional_title">Nazwisko rodowe matki</p>
+                        <p class="additional_subtitle" id="mothersFamilyName"></p>
+                    </div>
+                    <div class="additional_grid">
+                        <p class="additional_title">Miejsce urodzenia</p>
+                        <p class="additional_subtitle" id="birthPlace"></p>
+                    </div>
+                    <div class="additional_grid">
+                        <p class="additional_title">Kraj urodzenia</p>
+                        <p class="additional_subtitle" id="countryOfBirth"></p>
+                    </div>
+                    <div class="additional_grid">
+                        <p class="additional_title">Adres zameldowania na pobyt stały</p>
+                        <p class="additional_subtitle" id="adress"></p>
+                    </div>
+                    <div class="additional_grid" style="border-bottom: none;">
+                        <p class="additional_title">Data zameldowania na pobyt stały</p>
+                        <p class="additional_subtitle" id="checkInDate"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Last Update and Delete Options -->
+            <div class="bottom_holder">
+                <div class="bottom_update">
+                    <div class="bottom_update_grid">
+                        <p class="bottom_update_text">Ostatnia aktualizacja</p>
+                        <p class="bottom_update_value">17.09.2024</p>
+                    </div>
+                    <button class="bottom_update_button">Aktualizuj</button>
+                </div>
+            </div>
+            <div class="bottom_holder">
+                <div class="bottom_grid">
+                    <img class="bottom_image" style="width: 33px;" src="https://i.imgur.com/Ps3o2jv.png" alt="Delete Icon">
+                    <p class="bottom_text" style="color: #cd291c;">Usuń dokument</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <script src="assets/id.js"></script>
+    </footer>
+</body>
+</html>
