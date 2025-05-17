@@ -1,0 +1,547 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <title>Baza Danych - Panel użytkownika</title>
+    <style>
+        /* Reset marginesów i paddingów */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2196f3, #21cbf3);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Pasek u góry */
+        header {
+            background: linear-gradient(90deg, #283e51, #485563);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+            header .left {
+                font-weight: 700;
+                font-size: 1.3rem;
+                color: #ffd54f;
+                letter-spacing: 1px;
+            }
+
+            header .center {
+                font-weight: 600;
+                font-size: 1.5rem;
+                color: #fff;
+                user-select: none;
+            }
+
+            header .right {
+                font-weight: 500;
+                font-size: 1rem;
+                color: #fff;
+                text-align: right;
+                user-select: none;
+            }
+
+        /* Layout główny - trzy kolumny */
+        main {
+            flex-grow: 1;
+            padding: 20px 30px 100px; /* miejsce na pasek na dole */
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            gap: 30px;
+        }
+
+        /* Lewy panel */
+        section.left-panel {
+            flex: 1.2;
+            background: rgba(40, 62, 81, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+            section.left-panel h3 {
+                font-weight: 700;
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+                color: #ffd54f;
+                user-select: none;
+                text-align: center;
+            }
+
+        /* Lista użytkowników */
+        ul.user-list {
+            list-style: none;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin-bottom: 15px;
+        }
+
+            ul.user-list li {
+                padding: 8px 12px;
+                border-radius: 8px;
+                background: rgba(255,255,255,0.1);
+                margin-bottom: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                font-family: monospace;
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+                ul.user-list li:hover {
+                    background: rgba(255, 213, 79, 0.3);
+                }
+
+                ul.user-list li span {
+                    flex: 1;
+                    text-align: center;
+                    user-select: none;
+                }
+
+        /* Pole dodawania użytkownika */
+        form.add-user-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+            form.add-user-form input[type="text"],
+            form.add-user-form input[type="password"] {
+                padding: 10px;
+                border-radius: 8px;
+                border: none;
+                font-size: 1rem;
+                outline: none;
+            }
+
+            form.add-user-form input[readonly] {
+                background: rgba(255, 255, 255, 0.2);
+                cursor: not-allowed;
+            }
+
+            form.add-user-form button {
+                background: #ffd54f;
+                color: #283e51;
+                font-weight: 700;
+                border: none;
+                padding: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                form.add-user-form button:hover {
+                    background: #ffea7f;
+                }
+
+        /* Historia logowania */
+        div.login-history {
+            flex-grow: 1;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+
+            div.login-history h4 {
+                margin-bottom: 10px;
+                color: #ffd54f;
+                text-align: center;
+            }
+
+            div.login-history p {
+                margin-bottom: 8px;
+                line-height: 1.3;
+                font-family: monospace;
+            }
+
+        /* Środkowy panel */
+        section.center-panel {
+            flex: 1.5;
+            background: rgba(33, 203, 243, 0.15);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #283e51;
+            font-weight: 600;
+            user-select: none;
+            text-align: center;
+            min-height: 600px;
+        }
+
+        /* Prawy panel */
+        section.right-panel {
+            flex: 1;
+            background: rgba(40, 62, 81, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+            section.right-panel h3 {
+                font-weight: 700;
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+                color: #ffd54f;
+                user-select: none;
+                text-align: center;
+            }
+
+        ul.generated-logins {
+            list-style: none;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+
+            ul.generated-logins li {
+                padding: 8px 12px;
+                border-radius: 8px;
+                background: rgba(255,255,255,0.1);
+                margin-bottom: 8px;
+                cursor: default;
+                transition: background-color 0.3s ease;
+                user-select: none;
+            }
+
+                ul.generated-logins li:hover {
+                    background: rgba(255, 213, 79, 0.3);
+                }
+
+        /* Pasek na dole - nawigacja */
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #283e51, #485563);
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+            nav.bottom-nav a {
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                user-select: none;
+            }
+
+                nav.bottom-nav a:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    color: #ffd54f;
+                }
+
+                nav.bottom-nav a .emoji {
+                    font-size: 1.4rem;
+                }
+
+        /* Responsywność */
+        @media (max-width: 1100px) {
+            main {
+                flex-direction: column;
+                padding-bottom: 140px;
+            }
+
+            section.left-panel,
+            section.center-panel,
+            section.right-panel {
+                height: auto;
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav.bottom-nav a {
+                font-size: 0.9rem;
+                padding: 5px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="left">Użytkownik: <span id="currentUser">Brak</span></div>
+        <div class="center">Baza Danych</div>
+        <div class="right" id="dateTime">---</div>
+    </header>
+
+    <main>
+        <section class="left-panel" aria-label="Panel użytkowników">
+            <h3>Lista użytkowników</h3>
+            <ul class="user-list" id="userList" tabindex="0" aria-live="polite" aria-label="Lista użytkowników"></ul>
+
+            <form class="add-user-form" id="addUserForm" aria-label="Formularz dodawania użytkownika">
+                <input type="text" id="inputUserName" placeholder="Nazwa użytkownika" autocomplete="off" aria-required="true" />
+                <input type="password" id="inputUserPassword" placeholder="Hasło" autocomplete="new-password" aria-required="true" />
+                <input type="text" id="inputUserCity" placeholder="Miasto" autocomplete="off" aria-required="true" />
+                <button type="submit" aria-label="Dodaj użytkownika">Dodaj użytkownika</button>
+            </form>
+        </section>
+
+        <section class="center-panel" aria-label="Panel powitalny i informacje">
+            <div id="welcomeMessage">Wybierz użytkownika z listy lub dodaj nowego.</div>
+        </section>
+
+        <section class="right-panel" aria-label="Panel historii logowań">
+            <h3>Historia logowań</h3>
+            <div class="login-history" id="loginHistory" aria-live="polite" aria-atomic="true">
+                <p>Brak historii logowań.</p>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Nawigacja główna">
+        <a href="dashboard.html" aria-label="Dashboard"><span class="emoji" aria-hidden="true">📊</span> Dashboard</a>
+        <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer" aria-label="Google Drive"><span class="emoji" aria-hidden="true">📁</span> Google Drive</a>
+        <a href="index.html" aria-label="Wyloguj się"><span class="emoji" aria-hidden="true">🚪</span> Wyloguj się</a>
+    </nav>
+
+
+    <script>
+        (() => {
+            // Elementy DOM
+            const userListEl = document.getElementById('userList');
+            const addUserForm = document.getElementById('addUserForm');
+            const inputUserName = document.getElementById('inputUserName');
+            const inputUserPassword = document.getElementById('inputUserPassword');
+            const inputUserCity = document.getElementById('inputUserCity');
+            const loginHistoryEl = document.getElementById('loginHistory');
+            const currentUserEl = document.getElementById('currentUser');
+            const welcomeMessageEl = document.getElementById('welcomeMessage');
+            const dateTimeEl = document.getElementById('dateTime');
+
+            // Dane i stan
+            let users = [];
+            let loginHistory = [];
+            let currentUser = null;
+
+            // --- Utility ---
+
+            // Zapisz dane do localStorage
+            function saveData() {
+                localStorage.setItem('userData', JSON.stringify(users));
+                localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
+                localStorage.setItem('currentUser', currentUser ? currentUser.name : '');
+            }
+
+            // Wczytaj dane z localStorage
+            function loadData() {
+                const userDataRaw = localStorage.getItem('userData');
+                if (userDataRaw) {
+                    try {
+                        users = JSON.parse(userDataRaw);
+                    } catch {
+                        users = [];
+                    }
+                } else {
+                    users = [];
+                }
+
+                const loginHistRaw = localStorage.getItem('loginHistory');
+                if (loginHistRaw) {
+                    try {
+                        loginHistory = JSON.parse(loginHistRaw);
+                    } catch {
+                        loginHistory = [];
+                    }
+                } else {
+                    loginHistory = [];
+                }
+
+                const storedCurrentUser = localStorage.getItem('currentUser');
+                currentUser = users.find(u => u.name === storedCurrentUser) || null;
+            }
+
+            // Formatowanie daty i czasu
+            function formatDateTime(date = new Date()) {
+                return date.toLocaleString('pl-PL', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+            }
+
+            // Aktualizacja zegara na pasku górnym
+            function updateDateTime() {
+                dateTimeEl.textContent = formatDateTime();
+            }
+
+            // --- Renderowanie ---
+
+            // Odśwież listę użytkowników (posortowana alfabetycznie)
+            function renderUserList() {
+                userListEl.innerHTML = '';
+
+                if (users.length === 0) {
+                    const li = document.createElement('li');
+                    li.textContent = 'Brak użytkowników.';
+                    li.style.cursor = 'default';
+                    userListEl.appendChild(li);
+                    return;
+                }
+
+                // Sortowanie po nazwie (rosnąco)
+                const sortedUsers = [...users].sort((a, b) => a.name.localeCompare(b.name, 'pl'));
+
+                for (const user of sortedUsers) {
+                    const li = document.createElement('li');
+                    li.tabIndex = 0;
+                    li.setAttribute('role', 'button');
+                    li.setAttribute('aria-pressed', 'false');
+                    li.title = `Kliknij, aby się zalogować jako ${user.name}`;
+                    li.textContent = `${user.name} (${user.city})`;
+                    li.addEventListener('click', () => {
+                        loginUser(user);
+                    });
+                    li.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            loginUser(user);
+                        }
+                    });
+                    userListEl.appendChild(li);
+                }
+            }
+
+            // Renderowanie historii logowań
+            function renderLoginHistory() {
+                if (loginHistory.length === 0) {
+                    loginHistoryEl.innerHTML = '<p>Brak historii logowań.</p>';
+                    return;
+                }
+                loginHistoryEl.innerHTML = '';
+                const fragment = document.createDocumentFragment();
+
+                for (const log of loginHistory.slice(-10).reverse()) { // max 10 ostatnich wpisów
+                    const p = document.createElement('p');
+                    p.textContent = `[${log.time}] Użytkownik "${log.name}" zalogował się z miasta "${log.city}"`;
+                    fragment.appendChild(p);
+                }
+
+                loginHistoryEl.appendChild(fragment);
+            }
+
+            // Aktualizacja panelu powitalnego i nazwy aktualnego użytkownika
+            function updateCurrentUserPanel() {
+                if (currentUser) {
+                    currentUserEl.textContent = currentUser.name;
+                    welcomeMessageEl.textContent = `Witaj, ${currentUser.name}`;
+                } else {
+                    currentUserEl.textContent = 'Brak';
+                    welcomeMessageEl.textContent = 'Wybierz użytkownika z listy lub dodaj nowego.';
+                }
+            }
+
+            // --- Akcje użytkownika ---
+
+            // Dodaj użytkownika
+            function addUser(name, password, city) {
+                if (!name || !password || !city) {
+                    alert('Proszę wypełnić wszystkie pola!');
+                    return false;
+                }
+                // Sprawdź czy użytkownik już istnieje
+                if (users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+                    alert('Użytkownik o takiej nazwie już istnieje!');
+                    return false;
+                }
+                const newUser = { name, password, city };
+                users.push(newUser);
+                saveData();
+                renderUserList();
+                return true;
+            }
+
+            // Logowanie użytkownika
+            function loginUser(user) {
+                currentUser = user;
+                updateCurrentUserPanel();
+
+                // Dodaj wpis do historii logowań
+                loginHistory.push({
+                    name: user.name,
+                    city: user.city,
+                    time: formatDateTime()
+                });
+                saveData();
+                renderLoginHistory();
+            }
+
+            // --- Inicjalizacja ---
+
+            function init() {
+                loadData();
+                renderUserList();
+                renderLoginHistory();
+                updateCurrentUserPanel();
+                updateDateTime();
+                setInterval(updateDateTime, 1000);
+
+                addUserForm.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const name = inputUserName.value.trim();
+                    const password = inputUserPassword.value.trim();
+                    const city = inputUserCity.value.trim();
+
+                    if (addUser(name, password, city)) {
+                        inputUserName.value = '';
+                        inputUserPassword.value = '';
+                        inputUserCity.value = '';
+                        inputUserName.focus();
+                    }
+                });
+            }
+
+            init();
+        })();
+    </script>
+
+</body>
+</html>

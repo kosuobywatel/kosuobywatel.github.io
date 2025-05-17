@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>GEN Z</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">GEN Z - Generator</h1>
+
+        <div class="upload">
+            <p class="upload_text">Dodaj zdjęcie z urządzenia:</p>
+            <input type="file" id="imageInput" accept="image/jpeg,image/png,image/gif">
+            <p class="error" style="display: none;">Błąd przy wczytywaniu obrazu</p>
+        </div>
+
+        <div class="form-section">
+            <div class="input_holder">
+                <input type="text" id="name" class="input" placeholder="Imię (imiona)">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="surname" class="input" placeholder="Nazwisko">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="nationality" class="input" placeholder="Obywatelstwo">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="familyName" class="input" placeholder="Nazwisko rodowe">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="fathersFamilyName" class="input" placeholder="Nazwisko rodowe ojca">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="mothersFamilyName" class="input" placeholder="Nazwisko rodowe matki">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="birthPlace" class="input" placeholder="Miejsce urodzenia">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="countryOfBirth" class="input" placeholder="Kraj urodzenia">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="address" class="input" placeholder="Adres zamieszkania">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="city" class="input" placeholder="Miasto">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="postalCode" class="input" placeholder="Kod pocztowy">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="pesel" class="input" placeholder="PESEL">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <div class="input_holder">
+                <input type="text" id="idNumber" class="input" placeholder="Numer dowodu">
+                <p class="error">To pole jest wymagane</p>
+            </div>
+            <button class="go" onclick="location.href='id.html'">Generuj</button>
+        </div>
+    </div>
+    <script src="assets/index.js"></script>
+</body>
+</html>
