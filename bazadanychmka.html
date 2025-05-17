@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="assets/index.css" />
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <title>Baza Danych mka</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f9f9f9;
+            color: #222;
+        }
+        header, footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        header img.logo, footer img.logo {
+            width: 40px;
+            height: 40px;
+        }
+        header p.logo_text, footer p.logo_text {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
+        }
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f8ff;
+        }
+        button.back-btn {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        button.back-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="assets/images/favicon.png" class="logo" alt="logo" />
+        <p class="logo_text">Baza Danych mka</p>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Imię (imiona)</th>
+                    <th>Nazwisko</th>
+                    <th>Link do profilu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Tutaj dopisuj kolejne wiersze z danymi -->
+            </tbody>
+        </table>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='dashboard.html'">Cofnij</button>
+
+    <footer>
+        <img src="assets/images/favicon.png" class="logo" alt="logo" />
+        <p class="logo_text">Baza Danych mka</p>
+    </footer>
+</body>
+</html>
 
