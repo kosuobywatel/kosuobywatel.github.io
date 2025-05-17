@@ -1,97 +1,247 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="assets/index.css" />
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
-    <title>Baza Danych mka</title>
-    <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background: #f9f9f9;
-            color: #222;
-        }
-        header, footer {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        header img.logo, footer img.logo {
-            width: 40px;
-            height: 40px;
-        }
-        header p.logo_text, footer p.logo_text {
-            font-size: 22px;
-            font-weight: bold;
-            margin: 0;
-        }
-        .table-container {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
-        }
-        th, td {
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-            font-size: 14px;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f8ff;
-        }
-        button.back-btn {
-            background-color: #007bff;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 20px 0;
-        }
-        button.back-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no" />
+<title>Baza Danych mka - Edytowalna</title>
+<link rel="stylesheet" href="assets/index.css" />
+<link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f9f9f9;
+        color: #222;
+    }
+    header, footer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    header img.logo, footer img.logo {
+        width: 40px;
+        height: 40px;
+    }
+    header p.logo_text, footer p.logo_text {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .table-container {
+        overflow-x: auto;
+        margin-bottom: 15px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
+    }
+    th, td {
+        padding: 10px 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 14px;
+    }
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f8ff;
+    }
+    button.back-btn {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 20px 0;
+    }
+    button.back-btn:hover {
+        background-color: #0056b3;
+    }
+    form input {
+        padding: 8px 12px;
+        margin-right: 10px;
+        font-size: 14px;
+    }
+    form button {
+        padding: 8px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+    form button:hover {
+        background-color: #0056b3;
+    }
+    td[contenteditable="true"] {
+        background-color: #fff7e6;
+        cursor: text;
+    }
+    .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .delete-btn:hover {
+        background-color: #b02a37;
+    }
+</style>
 </head>
 <body>
-    <header>
-        <img src="assets/images/favicon.png" class="logo" alt="logo" />
-        <p class="logo_text">Baza Danych mka</p>
-    </header>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Imię (imiona)</th>
-                    <th>Nazwisko</th>
-                    <th>Link do profilu</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Tutaj dopisuj kolejne wiersze z danymi -->
-            </tbody>
-        </table>
-    </div>
+<header>
+    <img src="assets/images/favicon.png" class="logo" alt="logo" />
+    <p class="logo_text">Baza Danych mka</p>
+</header>
 
-    <button class="back-btn" onclick="window.location.href='dashboard.html'">Cofnij</button>
+<!-- Formularz dodawania -->
+<form id="addForm">
+    <input type="text" id="inputName" placeholder="Imię (imiona)" required />
+    <input type="text" id="inputSurname" placeholder="Nazwisko" required />
+    <input type="url" id="inputProfile" placeholder="Link do profilu (http://...)" required />
+    <button type="submit">Dodaj</button>
+</form>
 
-    <footer>
-        <img src="assets/images/favicon.png" class="logo" alt="logo" />
-        <p class="logo_text">Baza Danych mka</p>
-    </footer>
+<div class="table-container">
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Imię (imiona)</th>
+                <th>Nazwisko</th>
+                <th>Link do profilu</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Wiersze będą dynamicznie generowane -->
+        </tbody>
+    </table>
+</div>
+
+<button class="back-btn" onclick="window.location.href='dashboard.html'">Cofnij</button>
+
+<footer>
+    <img src="assets/images/favicon.png" class="logo" alt="logo" />
+    <p class="logo_text">Baza Danych mka</p>
+</footer>
+
+<script>
+    const STORAGE_KEY = 'bazaDanychMkaData';
+
+    // Załaduj dane z localStorage lub pustą tablicę
+    let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+    const tableBody = document.querySelector('#dataTable tbody');
+    const form = document.getElementById('addForm');
+    const inputName = document.getElementById('inputName');
+    const inputSurname = document.getElementById('inputSurname');
+    const inputProfile = document.getElementById('inputProfile');
+
+    // Funkcja renderująca tabelę z danych
+    function renderTable() {
+        tableBody.innerHTML = '';
+        data.forEach((item, index) => {
+            const tr = document.createElement('tr');
+
+            // Imię (edytowalne)
+            const tdName = document.createElement('td');
+            tdName.textContent = item.name;
+            tdName.contentEditable = "true";
+            tdName.addEventListener('input', (e) => {
+                data[index].name = e.target.textContent.trim();
+                saveData();
+            });
+
+            // Nazwisko (edytowalne)
+            const tdSurname = document.createElement('td');
+            tdSurname.textContent = item.surname;
+            tdSurname.contentEditable = "true";
+            tdSurname.addEventListener('input', (e) => {
+                data[index].surname = e.target.textContent.trim();
+                saveData();
+            });
+
+            // Link (edytowalne)
+            const tdProfile = document.createElement('td');
+            tdProfile.contentEditable = "true";
+            tdProfile.innerHTML = item.profile;
+            tdProfile.addEventListener('input', (e) => {
+                data[index].profile = e.target.innerHTML.trim();
+                saveData();
+            });
+
+            // Akcje (usuń)
+            const tdActions = document.createElement('td');
+            const delBtn = document.createElement('button');
+            delBtn.textContent = 'Usuń';
+            delBtn.className = 'delete-btn';
+            delBtn.addEventListener('click', () => {
+                if(confirm(`Usunąć wpis: ${item.name} ${item.surname}?`)) {
+                    data.splice(index, 1);
+                    saveData();
+                    renderTable();
+                }
+            });
+            tdActions.appendChild(delBtn);
+
+            tr.appendChild(tdName);
+            tr.appendChild(tdSurname);
+            tr.appendChild(tdProfile);
+            tr.appendChild(tdActions);
+
+            tableBody.appendChild(tr);
+        });
+    }
+
+    // Funkcja zapisująca dane do localStorage
+    function saveData() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // Obsługa formularza dodawania nowego wpisu
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nameVal = inputName.value.trim();
+        const surnameVal = inputSurname.value.trim();
+        const profileVal = inputProfile.value.trim();
+
+        if(!nameVal || !surnameVal || !profileVal) {
+            alert('Wszystkie pola są wymagane!');
+            return;
+        }
+
+        // Dodaj nowy wpis do tablicy
+        data.push({
+            name: nameVal,
+            surname: surnameVal,
+            profile: `<a href="${profileVal}" target="_blank" rel="noopener noreferrer">${profileVal}</a>`
+        });
+
+        saveData();
+        renderTable();
+
+        // Wyczyść formularz
+        inputName.value = '';
+        inputSurname.value = '';
+        inputProfile.value = '';
+    });
+
+    // Renderuj tabelę po załadowaniu strony
+    renderTable();
+</script>
+
 </body>
 </html>
-
